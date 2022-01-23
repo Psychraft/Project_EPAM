@@ -1,0 +1,1661 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Final Project Big Data Analysis_kei.ipynb",
+      "provenance": [],
+      "toc_visible": true,
+      "authorship_tag": "ABX9TyNV5OtkQZpmXV28LY8kSpyE",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Psychraft/Project_EPAM/blob/main/Project_Recruitment_EPAM\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "pMvDdiqhrTVa"
+      },
+      "source": [
+        "Victor Oscar Bernal Alpizar\n",
+        "Student ID 4156\n",
+        "  \n",
+        "Final Project Big Data Analysis\n",
+        "\n",
+        "                                      Professor: Piotr Radkowski \n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "4zsGYDpZmU6G",
+        "colab": {
+          "resources": {
+            "http://localhost:8080/nbextensions/google.colab/files.js": {
+              "data": "Ly8gQ29weXJpZ2h0IDIwMTcgR29vZ2xlIExMQwovLwovLyBMaWNlbnNlZCB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wICh0aGUgIkxpY2Vuc2UiKTsKLy8geW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoIHRoZSBMaWNlbnNlLgovLyBZb3UgbWF5IG9idGFpbiBhIGNvcHkgb2YgdGhlIExpY2Vuc2UgYXQKLy8KLy8gICAgICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKLy8KLy8gVW5sZXNzIHJlcXVpcmVkIGJ5IGFwcGxpY2FibGUgbGF3IG9yIGFncmVlZCB0byBpbiB3cml0aW5nLCBzb2Z0d2FyZQovLyBkaXN0cmlidXRlZCB1bmRlciB0aGUgTGljZW5zZSBpcyBkaXN0cmlidXRlZCBvbiBhbiAiQVMgSVMiIEJBU0lTLAovLyBXSVRIT1VUIFdBUlJBTlRJRVMgT1IgQ09ORElUSU9OUyBPRiBBTlkgS0lORCwgZWl0aGVyIGV4cHJlc3Mgb3IgaW1wbGllZC4KLy8gU2VlIHRoZSBMaWNlbnNlIGZvciB0aGUgc3BlY2lmaWMgbGFuZ3VhZ2UgZ292ZXJuaW5nIHBlcm1pc3Npb25zIGFuZAovLyBsaW1pdGF0aW9ucyB1bmRlciB0aGUgTGljZW5zZS4KCi8qKgogKiBAZmlsZW92ZXJ2aWV3IEhlbHBlcnMgZm9yIGdvb2dsZS5jb2xhYiBQeXRob24gbW9kdWxlLgogKi8KKGZ1bmN0aW9uKHNjb3BlKSB7CmZ1bmN0aW9uIHNwYW4odGV4dCwgc3R5bGVBdHRyaWJ1dGVzID0ge30pIHsKICBjb25zdCBlbGVtZW50ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc3BhbicpOwogIGVsZW1lbnQudGV4dENvbnRlbnQgPSB0ZXh0OwogIGZvciAoY29uc3Qga2V5IG9mIE9iamVjdC5rZXlzKHN0eWxlQXR0cmlidXRlcykpIHsKICAgIGVsZW1lbnQuc3R5bGVba2V5XSA9IHN0eWxlQXR0cmlidXRlc1trZXldOwogIH0KICByZXR1cm4gZWxlbWVudDsKfQoKLy8gTWF4IG51bWJlciBvZiBieXRlcyB3aGljaCB3aWxsIGJlIHVwbG9hZGVkIGF0IGEgdGltZS4KY29uc3QgTUFYX1BBWUxPQURfU0laRSA9IDEwMCAqIDEwMjQ7CgpmdW5jdGlvbiBfdXBsb2FkRmlsZXMoaW5wdXRJZCwgb3V0cHV0SWQpIHsKICBjb25zdCBzdGVwcyA9IHVwbG9hZEZpbGVzU3RlcChpbnB1dElkLCBvdXRwdXRJZCk7CiAgY29uc3Qgb3V0cHV0RWxlbWVudCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKG91dHB1dElkKTsKICAvLyBDYWNoZSBzdGVwcyBvbiB0aGUgb3V0cHV0RWxlbWVudCB0byBtYWtlIGl0IGF2YWlsYWJsZSBmb3IgdGhlIG5leHQgY2FsbAogIC8vIHRvIHVwbG9hZEZpbGVzQ29udGludWUgZnJvbSBQeXRob24uCiAgb3V0cHV0RWxlbWVudC5zdGVwcyA9IHN0ZXBzOwoKICByZXR1cm4gX3VwbG9hZEZpbGVzQ29udGludWUob3V0cHV0SWQpOwp9CgovLyBUaGlzIGlzIHJvdWdobHkgYW4gYXN5bmMgZ2VuZXJhdG9yIChub3Qgc3VwcG9ydGVkIGluIHRoZSBicm93c2VyIHlldCksCi8vIHdoZXJlIHRoZXJlIGFyZSBtdWx0aXBsZSBhc3luY2hyb25vdXMgc3RlcHMgYW5kIHRoZSBQeXRob24gc2lkZSBpcyBnb2luZwovLyB0byBwb2xsIGZvciBjb21wbGV0aW9uIG9mIGVhY2ggc3RlcC4KLy8gVGhpcyB1c2VzIGEgUHJvbWlzZSB0byBibG9jayB0aGUgcHl0aG9uIHNpZGUgb24gY29tcGxldGlvbiBvZiBlYWNoIHN0ZXAsCi8vIHRoZW4gcGFzc2VzIHRoZSByZXN1bHQgb2YgdGhlIHByZXZpb3VzIHN0ZXAgYXMgdGhlIGlucHV0IHRvIHRoZSBuZXh0IHN0ZXAuCmZ1bmN0aW9uIF91cGxvYWRGaWxlc0NvbnRpbnVlKG91dHB1dElkKSB7CiAgY29uc3Qgb3V0cHV0RWxlbWVudCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKG91dHB1dElkKTsKICBjb25zdCBzdGVwcyA9IG91dHB1dEVsZW1lbnQuc3RlcHM7CgogIGNvbnN0IG5leHQgPSBzdGVwcy5uZXh0KG91dHB1dEVsZW1lbnQubGFzdFByb21pc2VWYWx1ZSk7CiAgcmV0dXJuIFByb21pc2UucmVzb2x2ZShuZXh0LnZhbHVlLnByb21pc2UpLnRoZW4oKHZhbHVlKSA9PiB7CiAgICAvLyBDYWNoZSB0aGUgbGFzdCBwcm9taXNlIHZhbHVlIHRvIG1ha2UgaXQgYXZhaWxhYmxlIHRvIHRoZSBuZXh0CiAgICAvLyBzdGVwIG9mIHRoZSBnZW5lcmF0b3IuCiAgICBvdXRwdXRFbGVtZW50Lmxhc3RQcm9taXNlVmFsdWUgPSB2YWx1ZTsKICAgIHJldHVybiBuZXh0LnZhbHVlLnJlc3BvbnNlOwogIH0pOwp9CgovKioKICogR2VuZXJhdG9yIGZ1bmN0aW9uIHdoaWNoIGlzIGNhbGxlZCBiZXR3ZWVuIGVhY2ggYXN5bmMgc3RlcCBvZiB0aGUgdXBsb2FkCiAqIHByb2Nlc3MuCiAqIEBwYXJhbSB7c3RyaW5nfSBpbnB1dElkIEVsZW1lbnQgSUQgb2YgdGhlIGlucHV0IGZpbGUgcGlja2VyIGVsZW1lbnQuCiAqIEBwYXJhbSB7c3RyaW5nfSBvdXRwdXRJZCBFbGVtZW50IElEIG9mIHRoZSBvdXRwdXQgZGlzcGxheS4KICogQHJldHVybiB7IUl0ZXJhYmxlPCFPYmplY3Q+fSBJdGVyYWJsZSBvZiBuZXh0IHN0ZXBzLgogKi8KZnVuY3Rpb24qIHVwbG9hZEZpbGVzU3RlcChpbnB1dElkLCBvdXRwdXRJZCkgewogIGNvbnN0IGlucHV0RWxlbWVudCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKGlucHV0SWQpOwogIGlucHV0RWxlbWVudC5kaXNhYmxlZCA9IGZhbHNlOwoKICBjb25zdCBvdXRwdXRFbGVtZW50ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQob3V0cHV0SWQpOwogIG91dHB1dEVsZW1lbnQuaW5uZXJIVE1MID0gJyc7CgogIGNvbnN0IHBpY2tlZFByb21pc2UgPSBuZXcgUHJvbWlzZSgocmVzb2x2ZSkgPT4gewogICAgaW5wdXRFbGVtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ2NoYW5nZScsIChlKSA9PiB7CiAgICAgIHJlc29sdmUoZS50YXJnZXQuZmlsZXMpOwogICAgfSk7CiAgfSk7CgogIGNvbnN0IGNhbmNlbCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2J1dHRvbicpOwogIGlucHV0RWxlbWVudC5wYXJlbnRFbGVtZW50LmFwcGVuZENoaWxkKGNhbmNlbCk7CiAgY2FuY2VsLnRleHRDb250ZW50ID0gJ0NhbmNlbCB1cGxvYWQnOwogIGNvbnN0IGNhbmNlbFByb21pc2UgPSBuZXcgUHJvbWlzZSgocmVzb2x2ZSkgPT4gewogICAgY2FuY2VsLm9uY2xpY2sgPSAoKSA9PiB7CiAgICAgIHJlc29sdmUobnVsbCk7CiAgICB9OwogIH0pOwoKICAvLyBXYWl0IGZvciB0aGUgdXNlciB0byBwaWNrIHRoZSBmaWxlcy4KICBjb25zdCBmaWxlcyA9IHlpZWxkIHsKICAgIHByb21pc2U6IFByb21pc2UucmFjZShbcGlja2VkUHJvbWlzZSwgY2FuY2VsUHJvbWlzZV0pLAogICAgcmVzcG9uc2U6IHsKICAgICAgYWN0aW9uOiAnc3RhcnRpbmcnLAogICAgfQogIH07CgogIGNhbmNlbC5yZW1vdmUoKTsKCiAgLy8gRGlzYWJsZSB0aGUgaW5wdXQgZWxlbWVudCBzaW5jZSBmdXJ0aGVyIHBpY2tzIGFyZSBub3QgYWxsb3dlZC4KICBpbnB1dEVsZW1lbnQuZGlzYWJsZWQgPSB0cnVlOwoKICBpZiAoIWZpbGVzKSB7CiAgICByZXR1cm4gewogICAgICByZXNwb25zZTogewogICAgICAgIGFjdGlvbjogJ2NvbXBsZXRlJywKICAgICAgfQogICAgfTsKICB9CgogIGZvciAoY29uc3QgZmlsZSBvZiBmaWxlcykgewogICAgY29uc3QgbGkgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdsaScpOwogICAgbGkuYXBwZW5kKHNwYW4oZmlsZS5uYW1lLCB7Zm9udFdlaWdodDogJ2JvbGQnfSkpOwogICAgbGkuYXBwZW5kKHNwYW4oCiAgICAgICAgYCgke2ZpbGUudHlwZSB8fCAnbi9hJ30pIC0gJHtmaWxlLnNpemV9IGJ5dGVzLCBgICsKICAgICAgICBgbGFzdCBtb2RpZmllZDogJHsKICAgICAgICAgICAgZmlsZS5sYXN0TW9kaWZpZWREYXRlID8gZmlsZS5sYXN0TW9kaWZpZWREYXRlLnRvTG9jYWxlRGF0ZVN0cmluZygpIDoKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJ24vYSd9IC0gYCkpOwogICAgY29uc3QgcGVyY2VudCA9IHNwYW4oJzAlIGRvbmUnKTsKICAgIGxpLmFwcGVuZENoaWxkKHBlcmNlbnQpOwoKICAgIG91dHB1dEVsZW1lbnQuYXBwZW5kQ2hpbGQobGkpOwoKICAgIGNvbnN0IGZpbGVEYXRhUHJvbWlzZSA9IG5ldyBQcm9taXNlKChyZXNvbHZlKSA9PiB7CiAgICAgIGNvbnN0IHJlYWRlciA9IG5ldyBGaWxlUmVhZGVyKCk7CiAgICAgIHJlYWRlci5vbmxvYWQgPSAoZSkgPT4gewogICAgICAgIHJlc29sdmUoZS50YXJnZXQucmVzdWx0KTsKICAgICAgfTsKICAgICAgcmVhZGVyLnJlYWRBc0FycmF5QnVmZmVyKGZpbGUpOwogICAgfSk7CiAgICAvLyBXYWl0IGZvciB0aGUgZGF0YSB0byBiZSByZWFkeS4KICAgIGxldCBmaWxlRGF0YSA9IHlpZWxkIHsKICAgICAgcHJvbWlzZTogZmlsZURhdGFQcm9taXNlLAogICAgICByZXNwb25zZTogewogICAgICAgIGFjdGlvbjogJ2NvbnRpbnVlJywKICAgICAgfQogICAgfTsKCiAgICAvLyBVc2UgYSBjaHVua2VkIHNlbmRpbmcgdG8gYXZvaWQgbWVzc2FnZSBzaXplIGxpbWl0cy4gU2VlIGIvNjIxMTU2NjAuCiAgICBsZXQgcG9zaXRpb24gPSAwOwogICAgZG8gewogICAgICBjb25zdCBsZW5ndGggPSBNYXRoLm1pbihmaWxlRGF0YS5ieXRlTGVuZ3RoIC0gcG9zaXRpb24sIE1BWF9QQVlMT0FEX1NJWkUpOwogICAgICBjb25zdCBjaHVuayA9IG5ldyBVaW50OEFycmF5KGZpbGVEYXRhLCBwb3NpdGlvbiwgbGVuZ3RoKTsKICAgICAgcG9zaXRpb24gKz0gbGVuZ3RoOwoKICAgICAgY29uc3QgYmFzZTY0ID0gYnRvYShTdHJpbmcuZnJvbUNoYXJDb2RlLmFwcGx5KG51bGwsIGNodW5rKSk7CiAgICAgIHlpZWxkIHsKICAgICAgICByZXNwb25zZTogewogICAgICAgICAgYWN0aW9uOiAnYXBwZW5kJywKICAgICAgICAgIGZpbGU6IGZpbGUubmFtZSwKICAgICAgICAgIGRhdGE6IGJhc2U2NCwKICAgICAgICB9LAogICAgICB9OwoKICAgICAgbGV0IHBlcmNlbnREb25lID0gZmlsZURhdGEuYnl0ZUxlbmd0aCA9PT0gMCA/CiAgICAgICAgICAxMDAgOgogICAgICAgICAgTWF0aC5yb3VuZCgocG9zaXRpb24gLyBmaWxlRGF0YS5ieXRlTGVuZ3RoKSAqIDEwMCk7CiAgICAgIHBlcmNlbnQudGV4dENvbnRlbnQgPSBgJHtwZXJjZW50RG9uZX0lIGRvbmVgOwoKICAgIH0gd2hpbGUgKHBvc2l0aW9uIDwgZmlsZURhdGEuYnl0ZUxlbmd0aCk7CiAgfQoKICAvLyBBbGwgZG9uZS4KICB5aWVsZCB7CiAgICByZXNwb25zZTogewogICAgICBhY3Rpb246ICdjb21wbGV0ZScsCiAgICB9CiAgfTsKfQoKc2NvcGUuZ29vZ2xlID0gc2NvcGUuZ29vZ2xlIHx8IHt9OwpzY29wZS5nb29nbGUuY29sYWIgPSBzY29wZS5nb29nbGUuY29sYWIgfHwge307CnNjb3BlLmdvb2dsZS5jb2xhYi5fZmlsZXMgPSB7CiAgX3VwbG9hZEZpbGVzLAogIF91cGxvYWRGaWxlc0NvbnRpbnVlLAp9Owp9KShzZWxmKTsK",
+              "ok": true,
+              "headers": [
+                [
+                  "content-type",
+                  "application/javascript"
+                ]
+              ],
+              "status": 200,
+              "status_text": ""
+            }
+          },
+          "base_uri": "https://localhost:8080/",
+          "height": 90
+        },
+        "outputId": "f70b4cfc-d4bf-47c4-a341-5e0cd40721ff"
+      },
+      "source": [
+        "from google.colab import files\n",
+        "\n",
+        "uploaded = files.upload()\n",
+        "\n",
+        "for fn in uploaded.keys():\n",
+        "\n",
+        "  print('User uploaded file \"{name}\" with length {length} bytes'.format(\n",
+        "\n",
+        "name=fn, length=len(uploaded[fn])))"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/html": [
+              "\n",
+              "     <input type=\"file\" id=\"files-94d26516-63cb-40f2-abce-b0fbeed0fb22\" name=\"files[]\" multiple disabled\n",
+              "        style=\"border:none\" />\n",
+              "     <output id=\"result-94d26516-63cb-40f2-abce-b0fbeed0fb22\">\n",
+              "      Upload widget is only available when the cell has been executed in the\n",
+              "      current browser session. Please rerun this cell to enable.\n",
+              "      </output>\n",
+              "      <script src=\"/nbextensions/google.colab/files.js\"></script> "
+            ],
+            "text/plain": [
+              "<IPython.core.display.HTML object>"
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Saving cardio_train.csv to cardio_train.csv\n",
+            "User uploaded file \"cardio_train.csv\" with length 2941524 bytes\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        ""
+      ],
+      "metadata": {
+        "id": "1UZ7-zrP6nXj"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "gf0wqNwfcT13"
+      },
+      "source": [
+        "# New Section"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "R-sGTDNNm-ry"
+      },
+      "source": [
+        "import pandas as pd #Data processing\n",
+        "import pandas.util.testing as tm\n",
+        "import numpy as np\n",
+        "from scipy import stats\n",
+        "\n",
+        "# Data visualization  \n",
+        "import matplotlib\n",
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.metrics import accuracy_score\n",
+        "from sklearn import metrics\n",
+        "from sklearn.neural_network import MLPRegressor\n",
+        "from sklearn.metrics import classification_report\n",
+        "from sklearn.metrics import confusion_matrix\n",
+        "import os # accessing directory structure\n",
+        "from mpl_toolkits.mplot3d import Axes3D\n",
+        "from sklearn.preprocessing import StandardScaler\n",
+        "import matplotlib.pyplot as plt # plotting\n",
+        "import numpy as np # linear algebra\n",
+        "\n",
+        "from sklearn.preprocessing import RobustScaler, label_binarize\n",
+        "from sklearn.model_selection import train_test_split, GridSearchCV\n",
+        "\n",
+        "# decision tree, logistic\n",
+        "from sklearn.tree import DecisionTreeClassifier, export_graphviz\n",
+        "import graphviz\n",
+        "from sklearn.linear_model import LogisticRegressionCV\n",
+        "\n",
+        "import statsmodels.api as sm       \n",
+        "from statsmodels.formula.api import ols, logit\n",
+        "import statsmodels.formula.api as smf \n",
+        "\n",
+        "# VIF computation\n",
+        "from statsmodels.stats.outliers_influence import variance_inflation_factor\n",
+        "\n",
+        "# ensemble methods, MLP\n",
+        "from sklearn.ensemble import BaggingClassifier, RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier\n",
+        "from sklearn.svm import LinearSVC, SVC\n",
+        "from sklearn.neural_network import MLPClassifier\n",
+        "\n",
+        "from itertools import product\n",
+        "\n",
+        "from sklearn.metrics import jaccard_score, adjusted_rand_score, silhouette_score, calinski_harabasz_score, roc_curve, auc, accuracy_score, classification_report, confusion_matrix\n",
+        "from sklearn.metrics.cluster import contingency_matrix\n",
+        "\n",
+        "\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "V4_kX0GBnMlB",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 183
+        },
+        "outputId": "3c419a47-ed83-4f1f-eaa7-c3b60d668022"
+      },
+      "source": [
+        "#To read the dataset that was uploaded in colab \n",
+        "Cardio_disease = pd.read_csv (r'/content/cardio_train.csv')"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-4-09a9db044e19>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;31m#To read the dataset that was uploaded in colab\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0mCardio_disease\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mpd\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mread_csv\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0;34mr'/content/cardio_train.csv'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'pd' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "Cardio_disease = pd.read"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 165
+        },
+        "id": "cF3PXRk35iWY",
+        "outputId": "d4ca2628-17fa-4603-d9f7-d2ab7a8a2609"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-2-64e9699f49d5>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mCardio_disease\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mpd\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mread\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'pd' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "iGedoKDG4SGv"
+      },
+      "source": [
+        "Cardio_disease\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "SJC9K5DT8Z6i"
+      },
+      "source": [
+        "First step to be done is the inspection of the files and to check if the data was neither corrupted nor damaged which I made sure this wont happen. Also considering the semicolon as the separator so that all observations can be readeable."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "cuohFmdK4jbO"
+      },
+      "source": [
+        "#Dataset needs to be delimited with semicolon\n",
+        "Cardio_disease2 = pd.read_csv (r'/content/cardio_train.csv', delimiter=';')\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_UOpNZZR43JW",
+        "outputId": "75e06ffa-1100-41b7-cb67-4bc50ee6e5af"
+      },
+      "source": [
+        "print(Cardio_disease2)"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "          id    age  gender  height  weight  ...  gluc  smoke  alco  active  cardio\n",
+            "0          0  18393       2     168    62.0  ...     1      0     0       1       0\n",
+            "1          1  20228       1     156    85.0  ...     1      0     0       1       1\n",
+            "2          2  18857       1     165    64.0  ...     1      0     0       0       1\n",
+            "3          3  17623       2     169    82.0  ...     1      0     0       1       1\n",
+            "4          4  17474       1     156    56.0  ...     1      0     0       0       0\n",
+            "...      ...    ...     ...     ...     ...  ...   ...    ...   ...     ...     ...\n",
+            "69995  99993  19240       2     168    76.0  ...     1      1     0       1       0\n",
+            "69996  99995  22601       1     158   126.0  ...     2      0     0       1       1\n",
+            "69997  99996  19066       2     183   105.0  ...     1      0     1       0       1\n",
+            "69998  99998  22431       1     163    72.0  ...     2      0     0       0       1\n",
+            "69999  99999  20540       1     170    72.0  ...     1      0     0       1       0\n",
+            "\n",
+            "[70000 rows x 13 columns]\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "AvgKO1L972do"
+      },
+      "source": [
+        "Cardiovascular Disease Dataset was used for this final project.\n",
+        "This dataset is composed by 13 variables \n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "uW0stbZ2ATRI"
+      },
+      "source": [
+        "#Data description\n",
+        "There are 3 types of input features:\n",
+        "\n",
+        "Objective: factual information / this input is easy to measure because either you are male or female or you have age or not.\n",
+        "\n",
+        "Examination: results of medical examination / Tells us something that was measured in a process.\n",
+        "\n",
+        "Subjective: information given by the patient  /  All the data was collected in reports of patients.\n",
+        "\n",
+        "\n",
+        "\n",
+        "Variables are separated as follows:\n",
+        "\n",
+        "\n",
+        "VARIABLE | INPUT FEATURES | NAME OF THE VARIABLE IN THE DATASET |  DATA TYPE | (UNIT OF MEASURE ONLY FOR AGE, HEIGHT AND WEIGHT) |  TYPE OF VARIABLE\n",
+        "\n",
+        "\n",
+        "1. Patient ID | Subjective Feature | ID | int | Quantitative and discrete variable\n",
+        "\n",
+        "2. Age | Objective Feature | age | int | (days) | Quantitative and continuous variable\n",
+        "\n",
+        "3. Gender | Objective Feature | gender | categorical code | Dummy variable\n",
+        "\n",
+        "4. Height | Objective Feature | height | int | (cm) | Quantitative and continuous variable\n",
+        "\n",
+        "5. Weight | Objective Feature | weight | float | (kg) | Quantitative and continuous variable\n",
+        "\n",
+        "6. Systolic blood pressure | Examination Feature | ap_hi | int | Quantitative and continuous variable\n",
+        "\n",
+        "7. Diastolic blood pressure | Examination Feature | ap_lo | int | Quantitative and continuous variable\n",
+        "\n",
+        "8. Cholesterol | Examination Feature |  1: normal, 2: above normal, 3: well above normal | Categorical variable\n",
+        "\n",
+        "9. Glucose | Examination Feature | gluc | 1: normal, 2: above normal, 3: well above normal | Categorical variable\n",
+        "\n",
+        "10. Smoking | Subjective Feature | smoke | binary | Dummy variable\n",
+        "\n",
+        "11. Alcohol intake | Subjective Feature | alco | binary | Dummy variable\n",
+        "\n",
+        "12. Physical activity | Subjective Feature | active | binary | Dummy variable\n",
+        "\n",
+        "13. Presence or absence of cardiovascular disease | Target Variable | cardio | binary | Dummy variable\n",
+        "\n",
+        "All of the dataset values were collected at the moment of medical examination.\n",
+        "\n",
+        "It is important to highlight that for the dummy variables (smoke, alco, active and cardio -> 0 stands for 'NO' and 1 stands for 'YES'. Talking about the categorical variables ( cholesterol and gluc we only have 3 levels defined as follows: 1 -> normal, 2 -> above normal, 3 -> well above normal."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JIs6EVqPV7FM",
+        "outputId": "3d2b2ebe-7123-4085-ed6e-d893d84da1cb"
+      },
+      "source": [
+        "Cardio_disease2.info()"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "<class 'pandas.core.frame.DataFrame'>\n",
+            "RangeIndex: 70000 entries, 0 to 69999\n",
+            "Data columns (total 13 columns):\n",
+            " #   Column       Non-Null Count  Dtype  \n",
+            "---  ------       --------------  -----  \n",
+            " 0   id           70000 non-null  int64  \n",
+            " 1   age          70000 non-null  int64  \n",
+            " 2   gender       70000 non-null  int64  \n",
+            " 3   height       70000 non-null  int64  \n",
+            " 4   weight       70000 non-null  float64\n",
+            " 5   ap_hi        70000 non-null  int64  \n",
+            " 6   ap_lo        70000 non-null  int64  \n",
+            " 7   cholesterol  70000 non-null  int64  \n",
+            " 8   gluc         70000 non-null  int64  \n",
+            " 9   smoke        70000 non-null  int64  \n",
+            " 10  alco         70000 non-null  int64  \n",
+            " 11  active       70000 non-null  int64  \n",
+            " 12  cardio       70000 non-null  int64  \n",
+            "dtypes: float64(1), int64(12)\n",
+            "memory usage: 6.9 MB\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ev0g14MJX4zX",
+        "outputId": "7b009442-85f8-4a92-a494-61d916c64eca"
+      },
+      "source": [
+        "Cardio_disease2.columns"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Index(['id', 'age', 'gender', 'height', 'weight', 'ap_hi', 'ap_lo',\n",
+              "       'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'cardio'],\n",
+              "      dtype='object')"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 54
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 317
+        },
+        "id": "8dO1hr5VVCyk",
+        "outputId": "734db8d8-16e3-45fb-ab63-c45ec93a2018"
+      },
+      "source": [
+        "Cardio_disease2.describe()"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>id</th>\n",
+              "      <th>age</th>\n",
+              "      <th>gender</th>\n",
+              "      <th>height</th>\n",
+              "      <th>weight</th>\n",
+              "      <th>ap_hi</th>\n",
+              "      <th>ap_lo</th>\n",
+              "      <th>cholesterol</th>\n",
+              "      <th>gluc</th>\n",
+              "      <th>smoke</th>\n",
+              "      <th>alco</th>\n",
+              "      <th>active</th>\n",
+              "      <th>cardio</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>count</th>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "      <td>70000.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>mean</th>\n",
+              "      <td>49972.419900</td>\n",
+              "      <td>19468.865814</td>\n",
+              "      <td>1.349571</td>\n",
+              "      <td>164.359229</td>\n",
+              "      <td>74.205690</td>\n",
+              "      <td>128.817286</td>\n",
+              "      <td>96.630414</td>\n",
+              "      <td>1.366871</td>\n",
+              "      <td>1.226457</td>\n",
+              "      <td>0.088129</td>\n",
+              "      <td>0.053771</td>\n",
+              "      <td>0.803729</td>\n",
+              "      <td>0.499700</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>std</th>\n",
+              "      <td>28851.302323</td>\n",
+              "      <td>2467.251667</td>\n",
+              "      <td>0.476838</td>\n",
+              "      <td>8.210126</td>\n",
+              "      <td>14.395757</td>\n",
+              "      <td>154.011419</td>\n",
+              "      <td>188.472530</td>\n",
+              "      <td>0.680250</td>\n",
+              "      <td>0.572270</td>\n",
+              "      <td>0.283484</td>\n",
+              "      <td>0.225568</td>\n",
+              "      <td>0.397179</td>\n",
+              "      <td>0.500003</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>min</th>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>10798.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>55.000000</td>\n",
+              "      <td>10.000000</td>\n",
+              "      <td>-150.000000</td>\n",
+              "      <td>-70.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>25%</th>\n",
+              "      <td>25006.750000</td>\n",
+              "      <td>17664.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>159.000000</td>\n",
+              "      <td>65.000000</td>\n",
+              "      <td>120.000000</td>\n",
+              "      <td>80.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>50%</th>\n",
+              "      <td>50001.500000</td>\n",
+              "      <td>19703.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>165.000000</td>\n",
+              "      <td>72.000000</td>\n",
+              "      <td>120.000000</td>\n",
+              "      <td>80.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>75%</th>\n",
+              "      <td>74889.250000</td>\n",
+              "      <td>21327.000000</td>\n",
+              "      <td>2.000000</td>\n",
+              "      <td>170.000000</td>\n",
+              "      <td>82.000000</td>\n",
+              "      <td>140.000000</td>\n",
+              "      <td>90.000000</td>\n",
+              "      <td>2.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>max</th>\n",
+              "      <td>99999.000000</td>\n",
+              "      <td>23713.000000</td>\n",
+              "      <td>2.000000</td>\n",
+              "      <td>250.000000</td>\n",
+              "      <td>200.000000</td>\n",
+              "      <td>16020.000000</td>\n",
+              "      <td>11000.000000</td>\n",
+              "      <td>3.000000</td>\n",
+              "      <td>3.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "                 id           age  ...        active        cardio\n",
+              "count  70000.000000  70000.000000  ...  70000.000000  70000.000000\n",
+              "mean   49972.419900  19468.865814  ...      0.803729      0.499700\n",
+              "std    28851.302323   2467.251667  ...      0.397179      0.500003\n",
+              "min        0.000000  10798.000000  ...      0.000000      0.000000\n",
+              "25%    25006.750000  17664.000000  ...      1.000000      0.000000\n",
+              "50%    50001.500000  19703.000000  ...      1.000000      0.000000\n",
+              "75%    74889.250000  21327.000000  ...      1.000000      1.000000\n",
+              "max    99999.000000  23713.000000  ...      1.000000      1.000000\n",
+              "\n",
+              "[8 rows x 13 columns]"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 44
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 452
+        },
+        "id": "cWZDDfQ4Vemp",
+        "outputId": "eeeab906-20e9-4b89-f9d8-af34aad848e8"
+      },
+      "source": [
+        "Cardio_disease2.describe(include='all').T"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>count</th>\n",
+              "      <th>mean</th>\n",
+              "      <th>std</th>\n",
+              "      <th>min</th>\n",
+              "      <th>25%</th>\n",
+              "      <th>50%</th>\n",
+              "      <th>75%</th>\n",
+              "      <th>max</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>id</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>49972.419900</td>\n",
+              "      <td>28851.302323</td>\n",
+              "      <td>0.0</td>\n",
+              "      <td>25006.75</td>\n",
+              "      <td>50001.5</td>\n",
+              "      <td>74889.25</td>\n",
+              "      <td>99999.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>age</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>19468.865814</td>\n",
+              "      <td>2467.251667</td>\n",
+              "      <td>10798.0</td>\n",
+              "      <td>17664.00</td>\n",
+              "      <td>19703.0</td>\n",
+              "      <td>21327.00</td>\n",
+              "      <td>23713.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>gender</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>1.349571</td>\n",
+              "      <td>0.476838</td>\n",
+              "      <td>1.0</td>\n",
+              "      <td>1.00</td>\n",
+              "      <td>1.0</td>\n",
+              "      <td>2.00</td>\n",
+              "      <td>2.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>height</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>164.359229</td>\n",
+              "      <td>8.210126</td>\n",
+              "      <td>55.0</td>\n",
+              "      <td>159.00</td>\n",
+              "      <td>165.0</td>\n",
+              "      <td>170.00</td>\n",
+              "      <td>250.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>weight</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>74.205690</td>\n",
+              "      <td>14.395757</td>\n",
+              "      <td>10.0</td>\n",
+              "      <td>65.00</td>\n",
+              "      <td>72.0</td>\n",
+              "      <td>82.00</td>\n",
+              "      <td>200.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>ap_hi</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>128.817286</td>\n",
+              "      <td>154.011419</td>\n",
+              "      <td>-150.0</td>\n",
+              "      <td>120.00</td>\n",
+              "      <td>120.0</td>\n",
+              "      <td>140.00</td>\n",
+              "      <td>16020.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>ap_lo</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>96.630414</td>\n",
+              "      <td>188.472530</td>\n",
+              "      <td>-70.0</td>\n",
+              "      <td>80.00</td>\n",
+              "      <td>80.0</td>\n",
+              "      <td>90.00</td>\n",
+              "      <td>11000.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>cholesterol</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>1.366871</td>\n",
+              "      <td>0.680250</td>\n",
+              "      <td>1.0</td>\n",
+              "      <td>1.00</td>\n",
+              "      <td>1.0</td>\n",
+              "      <td>2.00</td>\n",
+              "      <td>3.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>gluc</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>1.226457</td>\n",
+              "      <td>0.572270</td>\n",
+              "      <td>1.0</td>\n",
+              "      <td>1.00</td>\n",
+              "      <td>1.0</td>\n",
+              "      <td>1.00</td>\n",
+              "      <td>3.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>smoke</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>0.088129</td>\n",
+              "      <td>0.283484</td>\n",
+              "      <td>0.0</td>\n",
+              "      <td>0.00</td>\n",
+              "      <td>0.0</td>\n",
+              "      <td>0.00</td>\n",
+              "      <td>1.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>alco</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>0.053771</td>\n",
+              "      <td>0.225568</td>\n",
+              "      <td>0.0</td>\n",
+              "      <td>0.00</td>\n",
+              "      <td>0.0</td>\n",
+              "      <td>0.00</td>\n",
+              "      <td>1.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>active</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>0.803729</td>\n",
+              "      <td>0.397179</td>\n",
+              "      <td>0.0</td>\n",
+              "      <td>1.00</td>\n",
+              "      <td>1.0</td>\n",
+              "      <td>1.00</td>\n",
+              "      <td>1.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>cardio</th>\n",
+              "      <td>70000.0</td>\n",
+              "      <td>0.499700</td>\n",
+              "      <td>0.500003</td>\n",
+              "      <td>0.0</td>\n",
+              "      <td>0.00</td>\n",
+              "      <td>0.0</td>\n",
+              "      <td>1.00</td>\n",
+              "      <td>1.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "               count          mean           std  ...      50%       75%      max\n",
+              "id           70000.0  49972.419900  28851.302323  ...  50001.5  74889.25  99999.0\n",
+              "age          70000.0  19468.865814   2467.251667  ...  19703.0  21327.00  23713.0\n",
+              "gender       70000.0      1.349571      0.476838  ...      1.0      2.00      2.0\n",
+              "height       70000.0    164.359229      8.210126  ...    165.0    170.00    250.0\n",
+              "weight       70000.0     74.205690     14.395757  ...     72.0     82.00    200.0\n",
+              "ap_hi        70000.0    128.817286    154.011419  ...    120.0    140.00  16020.0\n",
+              "ap_lo        70000.0     96.630414    188.472530  ...     80.0     90.00  11000.0\n",
+              "cholesterol  70000.0      1.366871      0.680250  ...      1.0      2.00      3.0\n",
+              "gluc         70000.0      1.226457      0.572270  ...      1.0      1.00      3.0\n",
+              "smoke        70000.0      0.088129      0.283484  ...      0.0      0.00      1.0\n",
+              "alco         70000.0      0.053771      0.225568  ...      0.0      0.00      1.0\n",
+              "active       70000.0      0.803729      0.397179  ...      1.0      1.00      1.0\n",
+              "cardio       70000.0      0.499700      0.500003  ...      0.0      1.00      1.0\n",
+              "\n",
+              "[13 rows x 8 columns]"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 50
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "2EzqoLuekHeU"
+      },
+      "source": [
+        "Looking at the data we can observe some descriptive statistics mean, max, min and dispertion of every single variable. But it is noticeable that some data must be transformed, such as age variable. Because it is expressed in days and  we need to standardize the data therefore it needs to be converted into years. Variables such as ID won't be taken into account. Considering the min and max values we can notice that outliers need to be removed for example: in the case of height there cannot be a person that is only 55 cm tall or the other way around 250 cm tall not even the tallest man in the world is that tall. For Weight some outliers as well do not have to be considered there cant be a person whose weight is 10 kg or even 200 kg. In the following picture we can see the ranges of the Systolic and Diastolic blood pressure. A normal value for Systolic is less than 120 and for Diastolic is 80 therefore negative values cannot be possible besides max values are even 16020 and 11000 accordingly therefore it is evident that some observations known as outliers need to be removed.\n",
+        "\n",
+        "> Indented block\n",
+        "\n",
+        "\n",
+        "\n",
+        "# Cholesterol ranges can be found in the image below\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "resources": {
+            "http://localhost:8080/nbextensions/google.colab/files.js": {
+              "data": "Ly8gQ29weXJpZ2h0IDIwMTcgR29vZ2xlIExMQwovLwovLyBMaWNlbnNlZCB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wICh0aGUgIkxpY2Vuc2UiKTsKLy8geW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoIHRoZSBMaWNlbnNlLgovLyBZb3UgbWF5IG9idGFpbiBhIGNvcHkgb2YgdGhlIExpY2Vuc2UgYXQKLy8KLy8gICAgICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKLy8KLy8gVW5sZXNzIHJlcXVpcmVkIGJ5IGFwcGxpY2FibGUgbGF3IG9yIGFncmVlZCB0byBpbiB3cml0aW5nLCBzb2Z0d2FyZQovLyBkaXN0cmlidXRlZCB1bmRlciB0aGUgTGljZW5zZSBpcyBkaXN0cmlidXRlZCBvbiBhbiAiQVMgSVMiIEJBU0lTLAovLyBXSVRIT1VUIFdBUlJBTlRJRVMgT1IgQ09ORElUSU9OUyBPRiBBTlkgS0lORCwgZWl0aGVyIGV4cHJlc3Mgb3IgaW1wbGllZC4KLy8gU2VlIHRoZSBMaWNlbnNlIGZvciB0aGUgc3BlY2lmaWMgbGFuZ3VhZ2UgZ292ZXJuaW5nIHBlcm1pc3Npb25zIGFuZAovLyBsaW1pdGF0aW9ucyB1bmRlciB0aGUgTGljZW5zZS4KCi8qKgogKiBAZmlsZW92ZXJ2aWV3IEhlbHBlcnMgZm9yIGdvb2dsZS5jb2xhYiBQeXRob24gbW9kdWxlLgogKi8KKGZ1bmN0aW9uKHNjb3BlKSB7CmZ1bmN0aW9uIHNwYW4odGV4dCwgc3R5bGVBdHRyaWJ1dGVzID0ge30pIHsKICBjb25zdCBlbGVtZW50ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc3BhbicpOwogIGVsZW1lbnQudGV4dENvbnRlbnQgPSB0ZXh0OwogIGZvciAoY29uc3Qga2V5IG9mIE9iamVjdC5rZXlzKHN0eWxlQXR0cmlidXRlcykpIHsKICAgIGVsZW1lbnQuc3R5bGVba2V5XSA9IHN0eWxlQXR0cmlidXRlc1trZXldOwogIH0KICByZXR1cm4gZWxlbWVudDsKfQoKLy8gTWF4IG51bWJlciBvZiBieXRlcyB3aGljaCB3aWxsIGJlIHVwbG9hZGVkIGF0IGEgdGltZS4KY29uc3QgTUFYX1BBWUxPQURfU0laRSA9IDEwMCAqIDEwMjQ7CgpmdW5jdGlvbiBfdXBsb2FkRmlsZXMoaW5wdXRJZCwgb3V0cHV0SWQpIHsKICBjb25zdCBzdGVwcyA9IHVwbG9hZEZpbGVzU3RlcChpbnB1dElkLCBvdXRwdXRJZCk7CiAgY29uc3Qgb3V0cHV0RWxlbWVudCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKG91dHB1dElkKTsKICAvLyBDYWNoZSBzdGVwcyBvbiB0aGUgb3V0cHV0RWxlbWVudCB0byBtYWtlIGl0IGF2YWlsYWJsZSBmb3IgdGhlIG5leHQgY2FsbAogIC8vIHRvIHVwbG9hZEZpbGVzQ29udGludWUgZnJvbSBQeXRob24uCiAgb3V0cHV0RWxlbWVudC5zdGVwcyA9IHN0ZXBzOwoKICByZXR1cm4gX3VwbG9hZEZpbGVzQ29udGludWUob3V0cHV0SWQpOwp9CgovLyBUaGlzIGlzIHJvdWdobHkgYW4gYXN5bmMgZ2VuZXJhdG9yIChub3Qgc3VwcG9ydGVkIGluIHRoZSBicm93c2VyIHlldCksCi8vIHdoZXJlIHRoZXJlIGFyZSBtdWx0aXBsZSBhc3luY2hyb25vdXMgc3RlcHMgYW5kIHRoZSBQeXRob24gc2lkZSBpcyBnb2luZwovLyB0byBwb2xsIGZvciBjb21wbGV0aW9uIG9mIGVhY2ggc3RlcC4KLy8gVGhpcyB1c2VzIGEgUHJvbWlzZSB0byBibG9jayB0aGUgcHl0aG9uIHNpZGUgb24gY29tcGxldGlvbiBvZiBlYWNoIHN0ZXAsCi8vIHRoZW4gcGFzc2VzIHRoZSByZXN1bHQgb2YgdGhlIHByZXZpb3VzIHN0ZXAgYXMgdGhlIGlucHV0IHRvIHRoZSBuZXh0IHN0ZXAuCmZ1bmN0aW9uIF91cGxvYWRGaWxlc0NvbnRpbnVlKG91dHB1dElkKSB7CiAgY29uc3Qgb3V0cHV0RWxlbWVudCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKG91dHB1dElkKTsKICBjb25zdCBzdGVwcyA9IG91dHB1dEVsZW1lbnQuc3RlcHM7CgogIGNvbnN0IG5leHQgPSBzdGVwcy5uZXh0KG91dHB1dEVsZW1lbnQubGFzdFByb21pc2VWYWx1ZSk7CiAgcmV0dXJuIFByb21pc2UucmVzb2x2ZShuZXh0LnZhbHVlLnByb21pc2UpLnRoZW4oKHZhbHVlKSA9PiB7CiAgICAvLyBDYWNoZSB0aGUgbGFzdCBwcm9taXNlIHZhbHVlIHRvIG1ha2UgaXQgYXZhaWxhYmxlIHRvIHRoZSBuZXh0CiAgICAvLyBzdGVwIG9mIHRoZSBnZW5lcmF0b3IuCiAgICBvdXRwdXRFbGVtZW50Lmxhc3RQcm9taXNlVmFsdWUgPSB2YWx1ZTsKICAgIHJldHVybiBuZXh0LnZhbHVlLnJlc3BvbnNlOwogIH0pOwp9CgovKioKICogR2VuZXJhdG9yIGZ1bmN0aW9uIHdoaWNoIGlzIGNhbGxlZCBiZXR3ZWVuIGVhY2ggYXN5bmMgc3RlcCBvZiB0aGUgdXBsb2FkCiAqIHByb2Nlc3MuCiAqIEBwYXJhbSB7c3RyaW5nfSBpbnB1dElkIEVsZW1lbnQgSUQgb2YgdGhlIGlucHV0IGZpbGUgcGlja2VyIGVsZW1lbnQuCiAqIEBwYXJhbSB7c3RyaW5nfSBvdXRwdXRJZCBFbGVtZW50IElEIG9mIHRoZSBvdXRwdXQgZGlzcGxheS4KICogQHJldHVybiB7IUl0ZXJhYmxlPCFPYmplY3Q+fSBJdGVyYWJsZSBvZiBuZXh0IHN0ZXBzLgogKi8KZnVuY3Rpb24qIHVwbG9hZEZpbGVzU3RlcChpbnB1dElkLCBvdXRwdXRJZCkgewogIGNvbnN0IGlucHV0RWxlbWVudCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKGlucHV0SWQpOwogIGlucHV0RWxlbWVudC5kaXNhYmxlZCA9IGZhbHNlOwoKICBjb25zdCBvdXRwdXRFbGVtZW50ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQob3V0cHV0SWQpOwogIG91dHB1dEVsZW1lbnQuaW5uZXJIVE1MID0gJyc7CgogIGNvbnN0IHBpY2tlZFByb21pc2UgPSBuZXcgUHJvbWlzZSgocmVzb2x2ZSkgPT4gewogICAgaW5wdXRFbGVtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ2NoYW5nZScsIChlKSA9PiB7CiAgICAgIHJlc29sdmUoZS50YXJnZXQuZmlsZXMpOwogICAgfSk7CiAgfSk7CgogIGNvbnN0IGNhbmNlbCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2J1dHRvbicpOwogIGlucHV0RWxlbWVudC5wYXJlbnRFbGVtZW50LmFwcGVuZENoaWxkKGNhbmNlbCk7CiAgY2FuY2VsLnRleHRDb250ZW50ID0gJ0NhbmNlbCB1cGxvYWQnOwogIGNvbnN0IGNhbmNlbFByb21pc2UgPSBuZXcgUHJvbWlzZSgocmVzb2x2ZSkgPT4gewogICAgY2FuY2VsLm9uY2xpY2sgPSAoKSA9PiB7CiAgICAgIHJlc29sdmUobnVsbCk7CiAgICB9OwogIH0pOwoKICAvLyBXYWl0IGZvciB0aGUgdXNlciB0byBwaWNrIHRoZSBmaWxlcy4KICBjb25zdCBmaWxlcyA9IHlpZWxkIHsKICAgIHByb21pc2U6IFByb21pc2UucmFjZShbcGlja2VkUHJvbWlzZSwgY2FuY2VsUHJvbWlzZV0pLAogICAgcmVzcG9uc2U6IHsKICAgICAgYWN0aW9uOiAnc3RhcnRpbmcnLAogICAgfQogIH07CgogIGNhbmNlbC5yZW1vdmUoKTsKCiAgLy8gRGlzYWJsZSB0aGUgaW5wdXQgZWxlbWVudCBzaW5jZSBmdXJ0aGVyIHBpY2tzIGFyZSBub3QgYWxsb3dlZC4KICBpbnB1dEVsZW1lbnQuZGlzYWJsZWQgPSB0cnVlOwoKICBpZiAoIWZpbGVzKSB7CiAgICByZXR1cm4gewogICAgICByZXNwb25zZTogewogICAgICAgIGFjdGlvbjogJ2NvbXBsZXRlJywKICAgICAgfQogICAgfTsKICB9CgogIGZvciAoY29uc3QgZmlsZSBvZiBmaWxlcykgewogICAgY29uc3QgbGkgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdsaScpOwogICAgbGkuYXBwZW5kKHNwYW4oZmlsZS5uYW1lLCB7Zm9udFdlaWdodDogJ2JvbGQnfSkpOwogICAgbGkuYXBwZW5kKHNwYW4oCiAgICAgICAgYCgke2ZpbGUudHlwZSB8fCAnbi9hJ30pIC0gJHtmaWxlLnNpemV9IGJ5dGVzLCBgICsKICAgICAgICBgbGFzdCBtb2RpZmllZDogJHsKICAgICAgICAgICAgZmlsZS5sYXN0TW9kaWZpZWREYXRlID8gZmlsZS5sYXN0TW9kaWZpZWREYXRlLnRvTG9jYWxlRGF0ZVN0cmluZygpIDoKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJ24vYSd9IC0gYCkpOwogICAgY29uc3QgcGVyY2VudCA9IHNwYW4oJzAlIGRvbmUnKTsKICAgIGxpLmFwcGVuZENoaWxkKHBlcmNlbnQpOwoKICAgIG91dHB1dEVsZW1lbnQuYXBwZW5kQ2hpbGQobGkpOwoKICAgIGNvbnN0IGZpbGVEYXRhUHJvbWlzZSA9IG5ldyBQcm9taXNlKChyZXNvbHZlKSA9PiB7CiAgICAgIGNvbnN0IHJlYWRlciA9IG5ldyBGaWxlUmVhZGVyKCk7CiAgICAgIHJlYWRlci5vbmxvYWQgPSAoZSkgPT4gewogICAgICAgIHJlc29sdmUoZS50YXJnZXQucmVzdWx0KTsKICAgICAgfTsKICAgICAgcmVhZGVyLnJlYWRBc0FycmF5QnVmZmVyKGZpbGUpOwogICAgfSk7CiAgICAvLyBXYWl0IGZvciB0aGUgZGF0YSB0byBiZSByZWFkeS4KICAgIGxldCBmaWxlRGF0YSA9IHlpZWxkIHsKICAgICAgcHJvbWlzZTogZmlsZURhdGFQcm9taXNlLAogICAgICByZXNwb25zZTogewogICAgICAgIGFjdGlvbjogJ2NvbnRpbnVlJywKICAgICAgfQogICAgfTsKCiAgICAvLyBVc2UgYSBjaHVua2VkIHNlbmRpbmcgdG8gYXZvaWQgbWVzc2FnZSBzaXplIGxpbWl0cy4gU2VlIGIvNjIxMTU2NjAuCiAgICBsZXQgcG9zaXRpb24gPSAwOwogICAgZG8gewogICAgICBjb25zdCBsZW5ndGggPSBNYXRoLm1pbihmaWxlRGF0YS5ieXRlTGVuZ3RoIC0gcG9zaXRpb24sIE1BWF9QQVlMT0FEX1NJWkUpOwogICAgICBjb25zdCBjaHVuayA9IG5ldyBVaW50OEFycmF5KGZpbGVEYXRhLCBwb3NpdGlvbiwgbGVuZ3RoKTsKICAgICAgcG9zaXRpb24gKz0gbGVuZ3RoOwoKICAgICAgY29uc3QgYmFzZTY0ID0gYnRvYShTdHJpbmcuZnJvbUNoYXJDb2RlLmFwcGx5KG51bGwsIGNodW5rKSk7CiAgICAgIHlpZWxkIHsKICAgICAgICByZXNwb25zZTogewogICAgICAgICAgYWN0aW9uOiAnYXBwZW5kJywKICAgICAgICAgIGZpbGU6IGZpbGUubmFtZSwKICAgICAgICAgIGRhdGE6IGJhc2U2NCwKICAgICAgICB9LAogICAgICB9OwoKICAgICAgbGV0IHBlcmNlbnREb25lID0gZmlsZURhdGEuYnl0ZUxlbmd0aCA9PT0gMCA/CiAgICAgICAgICAxMDAgOgogICAgICAgICAgTWF0aC5yb3VuZCgocG9zaXRpb24gLyBmaWxlRGF0YS5ieXRlTGVuZ3RoKSAqIDEwMCk7CiAgICAgIHBlcmNlbnQudGV4dENvbnRlbnQgPSBgJHtwZXJjZW50RG9uZX0lIGRvbmVgOwoKICAgIH0gd2hpbGUgKHBvc2l0aW9uIDwgZmlsZURhdGEuYnl0ZUxlbmd0aCk7CiAgfQoKICAvLyBBbGwgZG9uZS4KICB5aWVsZCB7CiAgICByZXNwb25zZTogewogICAgICBhY3Rpb246ICdjb21wbGV0ZScsCiAgICB9CiAgfTsKfQoKc2NvcGUuZ29vZ2xlID0gc2NvcGUuZ29vZ2xlIHx8IHt9OwpzY29wZS5nb29nbGUuY29sYWIgPSBzY29wZS5nb29nbGUuY29sYWIgfHwge307CnNjb3BlLmdvb2dsZS5jb2xhYi5fZmlsZXMgPSB7CiAgX3VwbG9hZEZpbGVzLAogIF91cGxvYWRGaWxlc0NvbnRpbnVlLAp9Owp9KShzZWxmKTsK",
+              "ok": true,
+              "headers": [
+                [
+                  "content-type",
+                  "application/javascript"
+                ]
+              ],
+              "status": 200,
+              "status_text": ""
+            }
+          },
+          "base_uri": "https://localhost:8080/",
+          "height": 394
+        },
+        "id": "VZALpLIrmFyK",
+        "outputId": "ebaa93f1-99a4-4695-ccb9-745b460bcffd"
+      },
+      "source": [
+        "from google.colab import files\n",
+        "\n",
+        "uploaded = files.upload()\n",
+        "\n",
+        "for fn in uploaded.keys():\n",
+        "\n",
+        "  print('User uploaded file \"{name}\" with length {length} bytes'.format(\n",
+        "\n",
+        "name=fn, length=len(uploaded[fn])))"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "data": {
+            "text/html": [
+              "\n",
+              "     <input type=\"file\" id=\"files-ee630b91-fcfb-4a3c-a8d2-b44904667348\" name=\"files[]\" multiple disabled\n",
+              "        style=\"border:none\" />\n",
+              "     <output id=\"result-ee630b91-fcfb-4a3c-a8d2-b44904667348\">\n",
+              "      Upload widget is only available when the cell has been executed in the\n",
+              "      current browser session. Please rerun this cell to enable.\n",
+              "      </output>\n",
+              "      <script src=\"/nbextensions/google.colab/files.js\"></script> "
+            ],
+            "text/plain": [
+              "<IPython.core.display.HTML object>"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "ename": "TypeError",
+          "evalue": "ignored",
+          "output_type": "error",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-1-9800cc0ceb97>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mgoogle\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcolab\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mfiles\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0muploaded\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mfiles\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mupload\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      4\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;32mfor\u001b[0m \u001b[0mfn\u001b[0m \u001b[0;32min\u001b[0m \u001b[0muploaded\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mkeys\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/google/colab/files.py\u001b[0m in \u001b[0;36mupload\u001b[0;34m()\u001b[0m\n\u001b[1;32m     66\u001b[0m   \u001b[0mlocal_filenames\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mdict\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     67\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 68\u001b[0;31m   \u001b[0;32mwhile\u001b[0m \u001b[0mresult\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'action'\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m!=\u001b[0m \u001b[0;34m'complete'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     69\u001b[0m     result = _output.eval_js(\n\u001b[1;32m     70\u001b[0m         'google.colab._files._uploadFilesContinue(\"{output_id}\")'.format(\n",
+            "\u001b[0;31mTypeError\u001b[0m: 'NoneType' object is not subscriptable"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "_7wvNxCMmOQj"
+      },
+      "source": [
+        "import matplotlib.image as mpimg\n",
+        "import matplotlib.pyplot as plt\n",
+        "img = mpimg.imread('image1.png')\n",
+        "plt.imshow(img)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "rz6PJgivVoy7"
+      },
+      "source": [
+        "# Letw take a look about our data and how it looks like the first 4 rows\n",
+        "Cardio_disease2.head()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ex_854lLn5aQ"
+      },
+      "source": [
+        "Cardio_disease2.dtypes.value_counts()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "QoM5FLebfI1m"
+      },
+      "source": [
+        "#Part about checking the quality fo the data is to know if there are some NOT APPLICABLE values but this dataset has no such observations. Lets create a table where with missing data\n",
+        "miss_values=Cardio_disease2.isnull().sum() # missing values\n",
+        "\n",
+        "Perc_values_missing = Cardio_disease2.isnull().sum()/Cardio_disease2.shape[0]*100 # missing value %\n",
+        "\n",
+        "value = {\n",
+        "    'miss_values':miss_values,\n",
+        "    'Perc_values_missing':Perc_values_missing \n",
+        "}\n",
+        "frame=pd.DataFrame(value)\n",
+        "frame"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "n9SWpB-82bEJ"
+      },
+      "source": [
+        "#Frequency of Dummy and categorical variables\n",
+        "Cardio_disease2[[\"gender\",\"cholesterol\",\"gluc\",\"smoke\",\"alco\",\"active\",\"cardio\" ]].apply(lambda x: x.value_counts()).T.stack()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "k5XdCNhAmIFp"
+      },
+      "source": [
+        "****************************DATA VISUALIZATION OF THE DATA WITHOUT BEING TRANSFORMED*******************************************************************"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "geNoW2BTnanw"
+      },
+      "source": [
+        "#Let's take a look on the multiple distribution by column\n",
+        "Cardio_disease2.hist(figsize=(20,15));"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "s7zTODSgquaK"
+      },
+      "source": [
+        "# Histograms for continious, discrete, dummy and categorical variables\n",
+        "Cardio_disease2.hist(column=['age', 'gender','height','weight','ap_hi','ap_lo','cholesterol','gluc','smoke','alco','active','cardio'], bins=25, figsize=(20, 15), color='#b4d997', edgecolor='black')"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "MyTgU377nali"
+      },
+      "source": [
+        "#CORRELATION MATRIX OF ALL VARIABLES WITHOUT BEING TRANSFORMED\n",
+        "corr=Cardio_disease2.corr()\n",
+        "corr.style.background_gradient(cmap='Oranges_r',axis=None)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "OQOwK8NK-4WP"
+      },
+      "source": [
+        "After analyzing the dataset we can infere that the best possible option for being our dependent variable is cardio that is a dummy variable. Cardio tell us if there is a presence or absence of cardiovascular disease and 0 stands for absence of cardiovascular disease and 1 stands for presence of cardiovascular disease."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "2_KLHqVC7xZG"
+      },
+      "source": [
+        "#Visualizing Dummy and categorical variables and its effects on cardio\n",
+        "Colunas = ('gender', 'cholesterol',\t'gluc',\t'smoke',\t'alco',\t'active',\t'bmi_high')\n",
+        "fig=plt.figure(figsize=(20,20))\n",
+        "j = 1\n",
+        "for i in Colunas :\n",
+        "  ax=fig.add_subplot(8,8,j)\n",
+        "  j = j + 1\n",
+        "  plt.figure(figsize=(2, 2))\n",
+        "  sns.barplot(x=i,y='cardio',data=Cardio_disease2,ci=None,ax=ax)\n",
+        "  fig.tight_layout()  \n",
+        "plt.show()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "GraWVn4t6THl"
+      },
+      "source": [
+        "********************DATA TRANSFORMATION************************"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "oPBRdD9ycxKI"
+      },
+      "source": [
+        "#For better understanding about our dummy variable gender that takes values 1 being as female and 2 being as male its better to factorized these values into 0 and 1 where 0 stands for female and 1 as male.\n",
+        "Cardio_disease2['gender_transformed'] = Cardio_disease2['gender'] - 1\n",
+        "Cardio_disease2.head(15)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "U-WIBGvbeKci"
+      },
+      "source": [
+        "#No need to keep original variables of \"gender\"\n",
+        "del Cardio_disease2['gender']"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "AWgEUMHQ5tve"
+      },
+      "source": [
+        "# Creation of new Variables\n",
+        "#NEW VARIABLE = age_y\n",
+        "Cardio_disease2['age_years'] = (Cardio_disease2['age']/365).round(decimals=2)    # Age in years -> AGE divided by 365\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "cLfuE21ZC91M"
+      },
+      "source": [
+        "sns.histplot(data=Cardio_disease2,x='age_y',bins=30,palette=\"Paired\", alpha=0.9)   "
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "L49WjkwZGDG_"
+      },
+      "source": [
+        "#2ND NEW VARIABLE\n",
+        "Cardio_disease2['bmi'] = (Cardio_disease2['weight'] / (((Cardio_disease2['height']/100)**2))).round(decimals=2)   # Body mass index\n",
+        "\n",
+        "\n",
+        "# Creating Flags for categories as 0-1. 0 stands for not having high BMI 1 stands for having high BM1\n",
+        "\n",
+        "Cardio_disease2['bmi_high'] = (Cardio_disease2['bmi'] >= 30).astype(int)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "6cl475twFqdG"
+      },
+      "source": [
+        "Cardio_disease2.hist(column=['bmi'], bins=50, figsize=(15, 10), color='#b4d997', edgecolor='black')"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "if8jGUiJIabM"
+      },
+      "source": [
+        "# We can observe the total number of patients with high body mass index and people who don't have high BMI\n",
+        "display(pd.DataFrame(Cardio_disease2['bmi_high'].value_counts()))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "9L6q052U7CM2"
+      },
+      "source": [
+        "print(Cardio_disease2)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "qrcWr6jv7x3U"
+      },
+      "source": [
+        "#No need to keep age column since it was transformed already\n",
+        "del Cardio_disease2['age']"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "HaGwiT8w7fe6"
+      },
+      "source": [
+        "Cardio_disease2.head()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ZtDOHetve1i2"
+      },
+      "source": [
+        "#As it was mentioned we have outliers that need to be removed from both blood pressures levels Systolic and Diastolic\n",
+        "\n",
+        "# First criteria is that we are going to discard the values in which DIastolic is > Systolic because this can not be possible\n",
+        "ap_logreaterthanap_hi = Cardio_disease2[Cardio_disease2['ap_lo'] > Cardio_disease2['ap_hi']].index \n",
+        "\n",
+        "# For the variable ap_hi that is Systolic blood pressure let's drop values higher than 200 or lower than 80\n",
+        "Adjusted_ap_hi = Cardio_disease2[(Cardio_disease2['ap_hi'] > 200) | (Cardio_disease2['ap_hi'] < 80)].index\n",
+        "\n",
+        "# For the variable ap_lo that is Diastolic blood pressure let's drop values higher than 160 or lower than 10\n",
+        "Adjusted_ap_lo = Cardio_disease2[(Cardio_disease2['ap_lo'] > 160) | (Cardio_disease2['ap_lo'] < 40)].index\n",
+        "\n",
+        "# number of records to be removed\n",
+        "Adjusted_blood = Adjusted_ap_hi.union(Adjusted_ap_lo)\n",
+        "Adjusted_blood.union(Adjusted_ap_lo)\n",
+        "print(Adjusted_blood.size)\n",
+        "1276\n",
+        "# remove the records\n",
+        "Cardio_disease2.drop(Adjusted_blood, inplace = True)\n",
+        "\n",
+        "\n",
+        "#creating the threshold 0 -> 1 for ap_hi\n",
+        "\n",
+        "Cardio_disease2['ap_hi_norm'] = (Cardio_disease2['ap_hi'] < 120).astype(int)\n",
+        "Cardio_disease2['ap_hi_elevated'] = ((Cardio_disease2['ap_hi'] >= 120) & (Cardio_disease2['ap_hi'] <=139)).astype(int)\n",
+        "Cardio_disease2['ap_hi_hypertension']= ((Cardio_disease2['ap_hi'] >=140) & (Cardio_disease2['ap_hi'] <=179)).astype(int)\n",
+        "Cardio_disease2['ap_hi_hyper_crisis']= (Cardio_disease2['ap_hi'] >=180).astype(int)\n",
+        "#creating the threshold 0 -> 1 for ap_lo \n",
+        "\n",
+        "Cardio_disease2['ap_lo_norm'] = (Cardio_disease2['ap_lo'] < 80).astype(int)\n",
+        "Cardio_disease2['ap_lo_elevated'] = ((Cardio_disease2['ap_lo'] >= 80) & (Cardio_disease2['ap_lo'] <=89)).astype(int)\n",
+        "Cardio_disease2['ap_lo_hypertension']= (Cardio_disease2['ap_lo'] >=90).astype(int)\n",
+        "Cardio_disease2['ap_lo_hyper_crisis']= (Cardio_disease2['ap_lo'] >=180).astype(int)\n",
+        "Cardio_disease2"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "G0NmNuELngKp"
+      },
+      "source": [
+        "8 new dummy variables were created band the criteria was based on the thresholds that are shown in the image above.\n",
+        "\n",
+        "1. ap_hi_norm\n",
+        "2. ap_hi_elevated\n",
+        "3. ap_hi_hypertension\n",
+        "4. ap_hi_hyper_crisis\n",
+        "5. ap_lo_norm\n",
+        "6. ap_lo_elevated\n",
+        "7. ap_lo_hypertension\n",
+        "8. ap_lo_hyper_crisis"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "elGIoj7qqnn2"
+      },
+      "source": [
+        "#Lets see some descriptive statistics about our new dataset\n",
+        "display(Cardio_disease2.describe().T)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "GtX3ZVChqLbX"
+      },
+      "source": [
+        "# Histograms for dummy variables ao_hi & ap_lo\n",
+        "Cardio_disease2.hist(column=['ap_hi','ap_lo'], bins=25, figsize=(20, 15), color='#b4d997', edgecolor='black')"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ASuvJ7SFsEC4"
+      },
+      "source": [
+        "After the standardization of the data for ap_hi and ap_lo and creations of new dummy variables.\n",
+        "Both variables follows a symmetrical distribution, the mean and the median are close together  if we ordered from smallest to largest the middle value in the data set, resembles the balancing point in the data close to the median and mean. Having a close median to the mean merely indicates the distribution is not skewed too badly. \n",
+        "Showing us that the data near the mean are more frequent in occurrence than data far from the mean.\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "g5TQ8QM9uR4O"
+      },
+      "source": [
+        "****DATA VISUALIZATION OF THE DATA AFTER BEING TRANSFORMED***"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "T02OqbVtKAHi"
+      },
+      "source": [
+        "def pie_chart(Cardio_disease2, col, labels):\n",
+        "    data = Cardio_disease2[col].value_counts().to_numpy()\n",
+        "    def absolute_value(val):\n",
+        "        a  = np.round(val / 100 * data.sum(), 0)\n",
+        "        return str('%0.0f' % a) + '\\n(' + ('%0.2f' % val) + '%)'\n",
+        "    plt.pie(data, labels = labels, autopct=absolute_value, colors=colors)\n",
+        "    plt.legend(title=col)\n",
+        "    plt.show() \n",
+        "\n",
+        "pie_chart(Cardio_disease2, 'gender_dummy', ['Female','Male'])\n",
+        "pie_chart(Cardio_disease2, 'cardio', ['No','Yes'])\n",
+        "pie_chart(Cardio_disease2, 'cholesterol', ['Normal', 'Above normal', 'Well above normal'])\n",
+        "pie_chart(Cardio_disease2, 'gluc', ['Normal', 'Above normal', 'Well above normal'])\n",
+        "pie_chart(Cardio_disease2, 'smoke', ['No', 'Yes'])\n",
+        "pie_chart(Cardio_disease2, 'alco', ['No','Yes'])\n",
+        "pie_chart(Cardio_disease2, 'active', ['No','Yes'])\n",
+        "\n",
+        "#ap_hi \n",
+        "\n",
+        "pie_chart(Cardio_disease2, 'ap_hi_norm', ['No','Yes'])\n",
+        "pie_chart(Cardio_disease2, 'ap_hi_elevated', ['No','Yes'])\n",
+        "pie_chart(Cardio_disease2, 'ap_hi_hypertension', ['No','Yes'])\n",
+        "pie_chart(Cardio_disease2, 'ap_hi_hyper_crisis', ['No','Yes'])\n",
+        "\n",
+        "#ap_lo \n",
+        "pie_chart(Cardio_disease2, 'ap_lo_norm', ['No','Yes'])\n",
+        "pie_chart(Cardio_disease2, 'ap_lo_elevated', ['No','Yes'])\n",
+        "pie_chart(Cardio_disease2, 'ap_lo_hypertension', ['No','Yes'])\n",
+        "pie_chart(Cardio_disease2, 'ap_lo_hyper_crisis', ['No','Yes'])"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "_lDXTw_j-2Sv"
+      },
+      "source": [
+        "From the pie charts we can observe that majority of people from the population are female, presence or absence for cardiovascular disease is almost the same. Most of the people with 75% out of the total population have normal cholesterol same as controlled glucose 85% of people are on the normal level of glucose. Very high percentage 91.20% of people don't smoke. Majority of people 94.65% don't consume alcohol but no active 80.34%.\n",
+        "We can also notice there was not level of hyper_crisis just small number in ap_hi and 28% and 25% of people have hypertension and 50% have elevated blood pressure."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "rf4j04MyAUAR"
+      },
+      "source": [
+        "#Scatter plot between weight and age_years based on cardio\n",
+        "plt.figure(figsize=(10, 6))\n",
+        "sns.scatterplot(x='age_years', y='weight', data= Cardio_disease2, hue='cardio')"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "TPsY9apTAT8X"
+      },
+      "source": [
+        "#Scatter plot between years and bmi based on cardio\n",
+        "plt.figure(figsize=(15, 7))\n",
+        "sns.scatterplot(x='age_years', y='bmi', data= Cardio_disease2, hue='cardio', legend = \"full\")"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "N0AhSrv9AT4x"
+      },
+      "source": [
+        "## Visualizing and understanding continuous variables relation with cardio variable\n",
+        "sns.histplot(Cardio_disease2, x='weight', bins = range(30,150,5), hue='cardio')\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ZnMa_YgrAT13"
+      },
+      "source": [
+        "sns.histplot(Cardio_disease2, x='age_years', bins = range(30,70,2), hue='cardio')"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "GV8oRKFlJ_p7"
+      },
+      "source": [
+        "#CORRELATION MAP WITH TRASNFORMED VARIABLES AND NEW CREATED VARIABLES\n",
+        "plt.figure(figsize=(30, 8))\n",
+        "sns.heatmap(Cardio_disease2.corr(), vmin=-1, vmax=1, annot=True, cmap='vlag') # cmap='BrBG'\n",
+        "plt.title('Correlation Map', fontdict={'fontsize':20}, pad=20);"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Ac63oZdqFxjY"
+      },
+      "source": [
+        "Based on the correlation table we can notice the most significant values, this will help us to define which independents variables we are going to consider for our variable, these are: Cholesterol (0.22), ap_hi_hypertension(0.4), ap_lo_hypertension (0.35), BMI(0.16), age_years(0.24)."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Rg4Yba8AH6V_"
+      },
+      "source": [
+        "#Creation of objects to define explanatory variables  and dependent variable\n",
+        "\n",
+        "x = Cardio_disease2.drop(columns = ['cardio', 'id','age','gender', 'height','weight','ap_hi','ap_lo','gluc','smoke', 'alco','active', 'gender_dummy', 'gender_transformed','ap_hi_norm','ap_hi_at_risk','ap_lo_norm','ap_lo_at_risk', 'ap_hi_elevated', 'ap_hi_hyper_crisis', 'ap_lo_elevated', 'ap_lo_hyper_crisis', 'bmi_high'])\n",
+        "\n",
+        "y = Cardio_disease2['cardio']"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "3lIIRKVOH6I4"
+      },
+      "source": [
+        "\n",
+        "# split data\n",
+        "x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 8017)\n",
+        "\n",
+        "\n",
+        "\n",
+        "# RobustScaler ALL variables\n",
+        "scaler = RobustScaler()\n",
+        "scaler.fit(x_train)\n",
+        "x_train = pd.DataFrame(scaler.transform(x_train), index=x_train.index, columns=x_train.columns)\n",
+        "x_test = pd.DataFrame(scaler.transform(x_test), index=x_test.index, columns=x_test.columns)\n",
+        "\n",
+        "pd.options.display.float_format = '{:,.4f}'.format\n",
+        "display(x_train.head(5))\n",
+        "display(x_train.describe())"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "eA6XtEjbQaH2"
+      },
+      "source": [
+        "GRADIENT BOOSTING"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "rz5DDnk_SLys"
+      },
+      "source": [
+        "parameters = {'max_depth': [1,2,3,4,5,6],\n",
+        "              'n_estimators': [200],\n",
+        "              'learning_rate': [0.01]}\n",
+        "\n",
+        "# fitting\n",
+        "GradientBoost_GSCV = GridSearchCV(GradientBoostingClassifier(random_state=8017), \n",
+        "                             parameters, n_jobs=-1, verbose=3)\n",
+        "GradientBoost_GSCV.fit(x_train, y_train)\n",
+        "GradientBoost_model = GradientBoost_GSCV.best_estimator_\n",
+        "GradientBoost_model"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "5h_XzLUpSM2T"
+      },
+      "source": [
+        "print(GradientBoost_model.get_params())\n",
+        "print(f\"Training Score: {round(GradientBoost_model.score(x_train, y_train),4)}\")\n",
+        "print(f\"Testing Score: {round(GradientBoost_model.score(x_test, y_test),4)}\")"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ceP2Y-9cSMsh"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "jm9zI_v1SMiI"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "dwoq1JCmFjzH"
+      },
+      "source": [
+        "LOGISTIC REGRESSION\n",
+        "\n",
+        "\n",
+        "This statistical model uses a logistic function to model a binary dependent variable. As our dependent variable is has only two values acting like binary  variable with only two classes. Therefore this model was the more convenient."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "S8Tp7oLBATjn"
+      },
+      "source": [
+        "#Logistic regression i\n",
+        "Logistic_model =  LogisticRegressionCV(Cs = 50, cv = 5, random_state=8017)\n",
+        "Logistic_model.fit(x_train, y_train)\n",
+        "print(Logistic_model.get_params())"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ca7fEtUJJ_xz"
+      },
+      "source": [
+        "\n",
+        "print('Candidates of Regularization Parameter C:')\n",
+        "print(Logistic_model.Cs_, '\\n')\n",
+        "\n",
+        "print(f\"Training Score: {round(Logistic_model.score(x_train, y_train),4)}\")\n",
+        "print(f\"Testing Score: {round(Logistic_model.score(x_test, y_test),4)}\")"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "uhTEW2fLP_gs"
+      },
+      "source": [
+        "# Fitted parameters\n",
+        "print(f'Best Regularization Parameter C = {round(Logistic_model.C_[0],4)}')\n",
+        "print(f'intercept = {round(Logistic_model.intercept_[0],4)}')\n",
+        "d = {'estimates' : list(Logistic_model.coef_[0]),\n",
+        "     'absolute' : np.abs(list(Logistic_model.coef_[0]))\n",
+        "    }\n",
+        "table = pd.DataFrame(d, index=x_train.columns)\n",
+        "\n",
+        "display(  table.sort_values('absolute', ascending=False).drop(columns='absolute')  )\n",
+        "# Odds ratio of the logistic regression\n",
+        "odds = round(np.exp(table), 3).drop(columns='absolute').sort_values('estimates', ascending=False)\n",
+        "print(odds)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "pdVHQOgGSMx3"
+      },
+      "source": [
+        "#Comparison of Models\n",
+        "result = pd.DataFrame({'Model':['Logistic',\n",
+        "                              'Gradient Boost'],\n",
+        "                       'Prediction Accuracy': [Logistic_model.score(x_test, y_test),\n",
+        "                                               GradientBoost_model.score(x_test, y_test),\n",
+        "                                               ]}\n",
+        "                     )\n",
+        "result.sort_values('Prediction Accuracy', ascending=False)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "S0tnTz8DUlKU"
+      },
+      "source": [
+        "From the 2 models we have got the most accurate Gradient Boost with 0.7219 "
+      ]
+    }
+  ]
+}
